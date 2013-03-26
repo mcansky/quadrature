@@ -7,7 +7,7 @@ require 'nokogiri'
 require 'htmldiff'
 require 'erb'
 
-data = %w(3 1 2).map { |i| File.read("Amdts_spectre_#{i}.txt") }.join
+data = ARGV.each { |i| File.read(i) }.join
 sections = data.scan(%r(<Amend>.+?</Amend>)m)
 
 Amendment = Struct.new :num, :note, :color, :commission_rows, :amendement_rows, :members, :article
@@ -48,7 +48,7 @@ amendments = sections.map do |xml|
       raise "Invalid note: #{note.inspect}"
   end
   
-  infos = xml.scan(%r(Text proposed by the Commission\nAmendment\n(.+)\nOr.)m).first
+  infos = xml.scan(%r(Text proposed by the Commission\nAmendment\n(.+)\n).first
   raise "No info found" unless infos
   
   
