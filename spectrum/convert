@@ -48,7 +48,7 @@ amendments = sections.map do |xml|
       raise "Invalid note: #{note.inspect}"
   end
   
-  infos = xml.scan(%r(Text proposed by the Commission\nAmendment\n(.+)\n).first
+  infos = xml.scan(%r(Text proposed by the Commission\nAmendment\n(.+)\n)).first
   raise "No info found" unless infos
   
   
